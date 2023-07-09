@@ -6,9 +6,9 @@ export default function Home() {
 	const [data, setData] = useState([]);
 	const [enable, setEnable] = useState(false);
 
-	const fetchCounter = async () => {
+	const fetchSerialPort = async () => {
 		try {
-			const res = await fetch("/api/counter");
+			const res = await fetch("/api/serialPort");
 			// console.log("res", res);
 			if (!res.ok) {
 				throw new Error(res.status);
@@ -21,7 +21,7 @@ export default function Home() {
 			}
 		} catch (error) {
 			console.log(
-				"An error occurred while fetching the counter value: ",
+				"An error occurred while fetching the serialPort value: ",
 				error
 			);
 		}
@@ -32,7 +32,7 @@ export default function Home() {
 
 		if (enable) {
 			intervalId = setInterval(() => {
-				fetchCounter();
+				fetchSerialPort();
 			}, 50);
 		}
 
@@ -40,7 +40,7 @@ export default function Home() {
 			if (intervalId) clearInterval(intervalId); // If an interval was set, clear it
 			// setEnable(false); // this line is not needed and might cause problems
 		};
-	}, [enable, fetchCounter]);
+	}, [enable, fetchSerialPort]);
 
 	return (
 		<>
@@ -84,7 +84,7 @@ export default function Home() {
 
 				{/* <ion-button
 					onClick={async () => {
-						fetchCounter();
+						fetchSerialPort();
 					}}
 				>
 					Fetch
